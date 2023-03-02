@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/titleFragment">
+
+    <fragment
+        android:id="@+id/titleFragment"
+        android:name="com.jimmy.bmiapp.TitleFragment"
+        android:label="TitleFragment"
+        tools:layout="@layout/fragment_title"
+        >
+        <action
+            android:id="@+id/action_titleFragment_to_bmiFragment"
+            app:destination="@id/bmiFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bmiFragment"
+        android:name="com.jimmy.bmiapp.BmiFragment"
+        android:label="BmiFragment"
+        tools:layout="@layout/fragment_bmi"
+        />
+</navigation>
