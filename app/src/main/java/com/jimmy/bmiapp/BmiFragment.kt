@@ -34,6 +34,8 @@ class BmiFragment : Fragment() {
 
         binding.clickBtn.setOnClickListener { displayResult() }
 
+        binding.clearBtn.setOnClickListener { clear() }
+
         return binding.root
     }
 
@@ -70,9 +72,13 @@ class BmiFragment : Fragment() {
             return weight / heightSq
 
         }
-
-
     }
+
+    fun clear () {
+        binding.weightNum.text.clear()
+        binding.heightNum.text.clear()
+    }
+
 }
 
 //println("%.2f".format(result))
