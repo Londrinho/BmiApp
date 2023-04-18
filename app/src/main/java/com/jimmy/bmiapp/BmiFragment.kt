@@ -14,13 +14,9 @@ import kotlin.math.roundToInt
 
 class BmiFragment : Fragment() {
 
-    private var weight: Int = 0
+    private lateinit var viewModel: BmiViewModel
 
-    private var height: Double = 0.0
 
-    private var result: Double = 0.0
-
-    private var formatRes: Double = 0.0
 
 
     private lateinit var binding: FragmentBmiBinding
@@ -30,9 +26,29 @@ class BmiFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        viewModel = ViewModelProvider(this).get(BmiViewModel::class.java)
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bmi, container, false)
 
-        binding.clickBtn.setOnClickListener { displayResult() }
+        binding.clickBtn.setOnClickListener {
+            var weight = 0
+            var height = 0.0
+            var resultsBmi = 0.0
+
+            weight = binding.weightNum.text.toString().toInt()
+
+            height = binding.heightNum.text.toString().toDouble()
+
+            resultsBmi = viewModel.getBmi(weight,height)
+
+            var advice: String = viewModel.giveAdvice(resultsBmi)
+
+            binding.results.text = resultsBmi.toString()
+
+            binding.advice.text = advice
+
+        }
 
         binding.clearBtn.setOnClickListener { clear() }
 
@@ -45,37 +61,6 @@ class BmiFragment : Fragment() {
 
 
     }
-
-    fun displayResult() {
-
-        val bmiCalOne = BmiCalculator()
-
-        weight = binding.weightNum.text.toString().toInt()
-
-        height = binding.heightNum.text.toString().toDouble()
-
-        result = bmiCalOne.getBmi(weight,height)
-
-        formatRes = result.roundToInt().toDouble()
-
-        binding.results.text = formatRes.toString()
-
-        giveAdvice(result)
-
-    }
-
-    class BmiCalculator {
-
-        fun getBmi(weight: Int, height: Double): Double {
-            var heightSq: Double
-
-            heightSq = height * height
-
-            return weight / heightSq
-
-        }
-    }
-
     fun clear () {
         binding.weightNum.text.clear()
         binding.heightNum.text.clear()
@@ -83,24 +68,9 @@ class BmiFragment : Fragment() {
         binding.advice.text = ""
     }
 
-    fun giveAdvice(results: Double){
 
-        val underWeight = "You are underweight"
-        val healthyWeight = "You have a healthy weight"
-        val overWeight = "You are overweight"
-        val obese = "You are obese"
 
-        if (results < 18.5){
-        binding.advice.text = underWeight
-    } else if (results >= 18.5 && results < 25){
-            binding.advice.text = healthyWeight
-    } else if (results >= 25 && results <= 29.9){
-        binding.advice.text = overWeight
-    } else {
-        binding.advice.text = obese
-    }
 
-    }
 
 }
 
