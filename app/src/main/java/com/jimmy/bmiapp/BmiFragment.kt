@@ -79,6 +79,8 @@ class BmiFragment : Fragment() {
     fun clear () {
         binding.weightNum.text.clear()
         binding.heightNum.text.clear()
+        binding.results.text = ""
+        binding.advice.text = ""
     }
 
     fun giveAdvice(results: Double){
