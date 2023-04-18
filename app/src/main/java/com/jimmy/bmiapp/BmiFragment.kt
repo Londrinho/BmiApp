@@ -104,5 +104,3 @@ class BmiFragment : Fragment() {
 
 }
 
-//println("%.2f".format(result))
-//TODO - put in formating for 2 decimal places and enact clear button
