@@ -60,6 +60,8 @@ class BmiFragment : Fragment() {
 
         binding.results.text = formatRes.toString()
 
+        giveAdvice(result)
+
     }
 
     class BmiCalculator {
@@ -77,6 +79,25 @@ class BmiFragment : Fragment() {
     fun clear () {
         binding.weightNum.text.clear()
         binding.heightNum.text.clear()
+    }
+
+    fun giveAdvice(results: Double){
+
+        val underWeight = "You are underweight"
+        val healthyWeight = "You have a healthy weight"
+        val overWeight = "You are overweight"
+        val obese = "You are obese"
+
+        if (results < 18.5){
+        binding.advice.text = underWeight
+    } else if (results >= 18.5 && results < 25){
+            binding.advice.text = healthyWeight
+    } else if (results >= 25 && results <= 29.9){
+        binding.advice.text = overWeight
+    } else {
+        binding.advice.text = obese
+    }
+
     }
 
 }
